@@ -1,0 +1,22 @@
+{
+  "name": "webhook-breaknews",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckhoon/webhook-breaknews.git"
+  },
+  "author": "Tan Cheng Khoon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ckhoon/webhook-breaknews/issues"
+  },
+  "homepage": "https://github.com/ckhoon/webhook-breaknews#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
