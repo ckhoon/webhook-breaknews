@@ -2,7 +2,7 @@
 var express = require('express');
 
 module.exports = function(app) {
-  var gameDataController = require('../Controllers/GameDataController');
+ // var gameDataController = require('../Controllers/GameDataController');
 
 var apiRoutes =  express.Router();
 
