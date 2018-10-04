@@ -19,8 +19,9 @@ server.use(bodyParser.json());
 var routes = require('./routes/routes'); //importing route
 routes(server); //register the route
 
-var port = process.env.Port || 8000;
+//var port = process.env.Port || 8000;
+var port = process.env.Port;
 
 server.listen((port), function () {
-    console.log("Server is up and listening on port" + port);
+    console.log("Server is up and listening on port " + port);
 });
