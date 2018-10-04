@@ -7,11 +7,14 @@ module.exports = function(app) {
 var apiRoutes =  express.Router();
 
 app.get('/',function(req,res){
-    res.send('We are happy to see you using Chat Bot Webhook');
+    res.send('We are happy to see you using Chat Bot Webhook @ get');
   });
 
-// registerUser Route
-  //app.route('/')
-  //  .post(gameDataController.processRequest);
+app.post('/',function(req,res){
+    res.send('We are happy to see you using Chat Bot Webhook @ post');
+  });
 
+	// registerUser Route
+	//app.route('/')
+	//  .post(gameDataController.processRequest);
 };
