@@ -16,7 +16,7 @@ module.exports = function(app) {
 		var source = '-1';
 	  switch(req.body.queryResult.intent.displayName){
 	    case 'Intro_good' :
-	      reply = 'Nope, I am alone. How is my result?';
+	      reply = 'Nope. I am alone. How is my result?';
 	      source = '0';
 	      break;
 	    case 'Intro_sad' :
