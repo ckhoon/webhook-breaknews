@@ -11,6 +11,7 @@ module.exports = function(app) {
   });
 
 	app.post('/',function(req,res){
+		var reply = 'Default webhook reply, -1';
 	  switch(req.body.queryResult.intent.displayName){
 	    case 'Pain' :
 	      reply = 'I am having chest pain'
