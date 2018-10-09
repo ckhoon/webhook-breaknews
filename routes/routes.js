@@ -17,7 +17,7 @@ module.exports = function(app) {
 	  switch(req.body.queryResult.intent.displayName){
 	    case 'Intro_good' :
 	      reply = 'Nope. I am alone. How is my result?';
-	      source = '0';
+	      source = '-1';
 	      break;
 	    case 'Intro_sad' :
 	      reply = 'You dont remember? How is my result?';
@@ -25,11 +25,11 @@ module.exports = function(app) {
 	      break;
 	    case 'Intro_shock' :
 	      reply = 'I am shocked. How is my result?';
-	      source = '2';
+	      source = '0';
 	      break;
 	    case 'Result_good' :
 	      reply = 'I was worried about my cancer';
-	      source = '0';
+	      source = '-1';
 	      break;
 	    case 'Result_sad' :
 	      reply = 'I don\'t know. I am nervous';
@@ -37,7 +37,7 @@ module.exports = function(app) {
 	      break;
 	    case 'Result_shock' :
 	      reply = 'I am shocked.';
-	      source = '2';
+	      source = '0';
 	      break;
 	    default :
 	      reply = "Default webhook reply";

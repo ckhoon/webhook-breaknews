@@ -131,13 +131,16 @@ def startSpeech():
     speak = pyttsx3.init()
     speak.setProperty('rate', 150)
     voices = speak.getProperty('voices')
-    speak.setProperty('voice', voices[0].id)
+    speak.setProperty('voice', voices[1].id)
 
 
     textFromSpeech = recognize_speech_from_mic(recognizer, microphone)
     play_sound()
     logging.debug("You said: {}".format(textFromSpeech["transcription"]))
 
+    if not textFromSpeech["transcription"]:
+        logging.debug("mic did not pick up anything") 
+        return "mic did not pick up anything"
 
     request.query = textFromSpeech["transcription"]
     logging.debug("sending to bot")
