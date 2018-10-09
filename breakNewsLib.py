@@ -120,6 +120,19 @@ def recognize_speech_from_mic(recognizer, microphone):
     return response
 
 
+
+def talk(text):
+    logging.debug("Text to speech -> " + text)
+    pythoncom.CoInitialize()
+    speak = pyttsx3.init()
+    speak.setProperty('rate', 150)
+    voices = speak.getProperty('voices')
+    speak.setProperty('voice', voices[1].id)
+    speak.say(text)
+    speak.runAndWait()
+    speak.stop()
+    return 
+
 def startSpeech():
     pythoncom.CoInitialize()
     recognizer = sr.Recognizer()
