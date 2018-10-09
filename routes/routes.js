@@ -35,7 +35,7 @@ module.exports = function(app) {
 	      reply = 'I don\'t know. I am nervous';
 	      source = '1';
 	      break;
-	    case 'Result_shock' :
+	    case 'Result_nervous' :
 	      reply = 'I am shocked.';
 	      source = '0';
 	      break;
