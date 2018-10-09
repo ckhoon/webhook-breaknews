@@ -31,11 +31,11 @@ module.exports = function(app) {
 	      reply = 'I was worried about my cancer';
 	      source = '-1';
 	      break;
-	    case 'Result_sad' :
+	    case 'Result_nervous' :
 	      reply = 'I don\'t know. I am nervous';
 	      source = '1';
 	      break;
-	    case 'Result_nervous' :
+	    case 'Result_shock' :
 	      reply = 'I am shocked.';
 	      source = '0';
 	      break;
