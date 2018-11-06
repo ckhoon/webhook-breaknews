@@ -172,9 +172,9 @@ def startSpeech():
         logging.debug("no source")
     
     #logging.debug("Bot show all: {}".format(obj['result']['fulfillment']))
-    speak.say(obj['result']['fulfillment']['speech'])
-    speak.runAndWait()
-    speak.stop()
+    #speak.say(obj['result']['fulfillment']['speech'])
+    #speak.runAndWait()
+    #speak.stop()
     #return obj['result']['fulfillment']['speech']
     return replied_text + "," + replied_expression
 
