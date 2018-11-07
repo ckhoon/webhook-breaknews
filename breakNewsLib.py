@@ -168,9 +168,9 @@ def startSpeech(session_id="001"):
     reader = codecs.getdecoder("utf-8")
     obj = json.load(response)
 
-    replied_text = ''
-    replied_expression = ''
-    replied_value = ''
+    replied_text = ' '
+    replied_expression = '0'
+    replied_value = '0'
     #logging.debug("full reply is {}".format(obj))
     logging.debug("Bot said: {}".format(obj['result']['fulfillment']['speech']))
     try:
@@ -189,7 +189,8 @@ def startSpeech(session_id="001"):
     #speak.runAndWait()
     #speak.stop()
     #return obj['result']['fulfillment']['speech']
-    return replied_text + ";" + replied_expression + ";" + replied_value
+    return replied_text + ":" + replied_expression + ";" + replied_value
+
 
 if __name__ == '__main__':
     startSpeech()
