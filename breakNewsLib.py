@@ -183,6 +183,8 @@ def startSpeech(session_id="001"):
         #logging.debug("Bot source: {}".format(obj['result']['fulfillment']['source']))
     except KeyError:
         logging.debug("no source")
+    except :
+        return replied_text + ":" + "0" + ";" + "0" 
     
     #logging.debug("Bot show all: {}".format(obj['result']['fulfillment']))
     #speak.say(obj['result']['fulfillment']['speech'])
