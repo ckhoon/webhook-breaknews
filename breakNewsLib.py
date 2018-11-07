@@ -37,6 +37,13 @@ except ImportError:
 
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 CLIENT_ACCESS_TOKEN = 'f9ccddaf4b7b47c09beb62dcb5868a35'
+emotionMapping = {
+    "happy" : "1",
+    "shocked" : "2",
+    "worried" : "3",
+    "confuse" : "4"
+}
+
 
 
 def play_sound():
@@ -133,18 +140,18 @@ def talk(text):
     speak.stop()
     return 
 
-def startSpeech():
+def startSpeech(session_id="001"):
     pythoncom.CoInitialize()
     recognizer = sr.Recognizer()
     microphone = sr.Microphone()
     ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
     request = ai.text_request()
     request.lang = 'en'  # optional, default value equal 'en'
-    request.session_id = "001"
-    speak = pyttsx3.init()
-    speak.setProperty('rate', 150)
-    voices = speak.getProperty('voices')
-    speak.setProperty('voice', voices[1].id)
+    request.session_id = session_id
+    #speak = pyttsx3.init()
+    #speak.setProperty('rate', 150)
+    #voices = speak.getProperty('voices')
+    #speak.setProperty('voice', voices[1].id)
 
 
     textFromSpeech = recognize_speech_from_mic(recognizer, microphone)
@@ -153,7 +160,7 @@ def startSpeech():
 
     if not textFromSpeech["transcription"]:
         logging.debug("mic did not pick up anything") 
-        return "mic did not pick up anything"
+        return "mic did not pick up anything ;0;0"
 
     request.query = textFromSpeech["transcription"]
     logging.debug("sending to bot")
@@ -163,11 +170,17 @@ def startSpeech():
 
     replied_text = ''
     replied_expression = ''
+    replied_value = ''
+    #logging.debug("full reply is {}".format(obj))
     logging.debug("Bot said: {}".format(obj['result']['fulfillment']['speech']))
     try:
         replied_text = obj['result']['fulfillment']['speech']
-        replied_expression = obj['result']['fulfillment']['source']
-        logging.debug("Bot source: {}".format(obj['result']['fulfillment']['source']))
+        #replied_expression = obj['result']['fulfillment']['source']
+        #logging.debug("message = {}".format(obj['result']['fulfillment']['messages'][0]))
+        #logging.debug("meassage 1 = {}".format(obj['result']['fulfillment']['messages'][1]['payload']['emotion']))
+        replied_expression = emotionMapping.get(obj['result']['fulfillment']['messages'][1]['payload']['emotion'], "0")
+        replied_value = obj['result']['fulfillment']['messages'][1]['payload']['value']
+        #logging.debug("Bot source: {}".format(obj['result']['fulfillment']['source']))
     except KeyError:
         logging.debug("no source")
     
@@ -176,7 +189,7 @@ def startSpeech():
     #speak.runAndWait()
     #speak.stop()
     #return obj['result']['fulfillment']['speech']
-    return replied_text + "," + replied_expression
+    return replied_text + ";" + replied_expression + ";" + replied_value
 
 if __name__ == '__main__':
     startSpeech()
