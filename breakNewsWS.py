@@ -28,5 +28,11 @@ def speak():
 	breakNewsLib.talk(request.args.get('text'))
 	return jsonify({'result': 'true'})
 
+@app.route('/sendBot')
+def sendBot():
+	logging.debug(request.args)
+	reply = breakNewsLib.sendBot(request.args.get('text'))
+	return jsonify({'result': reply})
+
 if __name__ == '__main__':
 	app.run(debug=True)

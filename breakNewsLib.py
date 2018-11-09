@@ -44,6 +44,8 @@ emotionMapping = {
     "confuse" : "4"
 }
 
+_sessionId = "000"
+
 
 
 def play_sound():
@@ -140,30 +142,15 @@ def talk(text):
     speak.stop()
     return 
 
-def startSpeech(session_id="001"):
-    pythoncom.CoInitialize()
-    recognizer = sr.Recognizer()
-    microphone = sr.Microphone()
+def sendBot(text):
     ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
     request = ai.text_request()
     request.lang = 'en'  # optional, default value equal 'en'
-    request.session_id = session_id
-    #speak = pyttsx3.init()
-    #speak.setProperty('rate', 150)
-    #voices = speak.getProperty('voices')
-    #speak.setProperty('voice', voices[1].id)
+    request.session_id = _sessionId
 
-
-    textFromSpeech = recognize_speech_from_mic(recognizer, microphone)
-    play_sound()
-    logging.debug("You said: {}".format(textFromSpeech["transcription"]))
-
-    if not textFromSpeech["transcription"]:
-        logging.debug("mic did not pick up anything") 
-        return "mic did not pick up anything ;0;0"
-
-    request.query = textFromSpeech["transcription"]
-    logging.debug("sending to bot")
+    text = text.replace("\"","")
+    logging.debug("Sent to bot -> " + text)
+    request.query = text
     response = request.getresponse()
     reader = codecs.getdecoder("utf-8")
     obj = json.load(response)
@@ -171,8 +158,8 @@ def startSpeech(session_id="001"):
     replied_text = ' '
     replied_expression = '0'
     replied_value = '0'
-    #logging.debug("full reply is {}".format(obj))
-    logging.debug("Bot said: {}".format(obj['result']['fulfillment']['speech']))
+    logging.debug("full reply is {}".format(obj))
+    #logging.debug("Bot said: {}".format(obj['result']['fulfillment']['speech']))
     try:
         replied_text = obj['result']['fulfillment']['speech']
         #replied_expression = obj['result']['fulfillment']['source']
@@ -192,6 +179,64 @@ def startSpeech(session_id="001"):
     #speak.stop()
     #return obj['result']['fulfillment']['speech']
     return replied_text + ":" + replied_expression + ";" + replied_value
+
+
+def startSpeech(session_id="001"):
+    pythoncom.CoInitialize()
+    recognizer = sr.Recognizer()
+    microphone = sr.Microphone()
+    ai = apiai.ApiAI(CLIENT_ACCESS_TOKEN)
+    request = ai.text_request()
+    request.lang = 'en'  # optional, default value equal 'en'
+    _sessionId = session_id
+    request.session_id = _sessionId
+    #speak = pyttsx3.init()
+    #speak.setProperty('rate', 150)
+    #voices = speak.getProperty('voices')
+    #speak.setProperty('voice', voices[1].id)
+
+
+    textFromSpeech = recognize_speech_from_mic(recognizer, microphone)
+    play_sound()
+    logging.debug("You said: {}".format(textFromSpeech["transcription"]))
+
+    if not textFromSpeech["transcription"]:
+        logging.debug("mic did not pick up anything") 
+        return "mic did not pick up anything ;0;0"
+
+    return textFromSpeech["transcription"]
+
+    #request.query = textFromSpeech["transcription"]
+    #logging.debug("sending to bot")
+
+    #response = request.getresponse()
+    #reader = codecs.getdecoder("utf-8")
+    #obj = json.load(response)
+
+    #replied_text = ' '
+    #replied_expression = '0'
+    #replied_value = '0'
+    #logging.debug("full reply is {}".format(obj))
+    #logging.debug("Bot said: {}".format(obj['result']['fulfillment']['speech']))
+    #try:
+    #    replied_text = obj['result']['fulfillment']['speech']
+    #    #replied_expression = obj['result']['fulfillment']['source']
+    #    #logging.debug("message = {}".format(obj['result']['fulfillment']['messages'][0]))
+    #    #logging.debug("meassage 1 = {}".format(obj['result']['fulfillment']['messages'][1]['payload']['emotion']))
+    #    replied_expression = emotionMapping.get(obj['result']['fulfillment']['messages'][1]['payload']['emotion'], "0")
+    #    replied_value = obj['result']['fulfillment']['messages'][1]['payload']['value']
+        #logging.debug("Bot source: {}".format(obj['result']['fulfillment']['source']))
+    #except KeyError:
+    #    logging.debug("no source")
+    #except :
+    #    return replied_text + ":" + "0" + ";" + "0" 
+    
+    #logging.debug("Bot show all: {}".format(obj['result']['fulfillment']))
+    #speak.say(obj['result']['fulfillment']['speech'])
+    #speak.runAndWait()
+    #speak.stop()
+    #return obj['result']['fulfillment']['speech']
+    #return replied_text + ":" + replied_expression + ";" + replied_value
 
 
 if __name__ == '__main__':
