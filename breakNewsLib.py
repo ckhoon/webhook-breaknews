@@ -156,6 +156,7 @@ def sendBot(text):
     obj = json.load(response)
 
     replied_text = ' '
+    replied_emo = ' '   
     replied_expression = '0'
     replied_value = '0'
     logging.debug("full reply is {}".format(obj))
@@ -167,18 +168,29 @@ def sendBot(text):
         #logging.debug("meassage 1 = {}".format(obj['result']['fulfillment']['messages'][1]['payload']['emotion']))
         replied_expression = emotionMapping.get(obj['result']['fulfillment']['messages'][1]['payload']['emotion'], "0")
         replied_value = obj['result']['fulfillment']['messages'][1]['payload']['value']
+        replied_feedback = obj['result']['fulfillment']['messages'][1]['payload']['feedback']
         #logging.debug("Bot source: {}".format(obj['result']['fulfillment']['source']))
     except KeyError:
         logging.debug("no source")
     except :
-        return replied_text + ":" + "0" + ";" + "0" 
+        replied_emo = ' ' + ":" + "0" + ";" + "0"
+        fullReply = {
+            "result" : replied_emo,
+            "feedback" : " "
+        }
+        return fullReply
     
     #logging.debug("Bot show all: {}".format(obj['result']['fulfillment']))
     #speak.say(obj['result']['fulfillment']['speech'])
     #speak.runAndWait()
     #speak.stop()
     #return obj['result']['fulfillment']['speech']
-    return replied_text + ":" + replied_expression + ";" + replied_value
+    replied_emo = replied_text + ";" + replied_expression + ";" + replied_value
+    fullReply = {
+        "result" : replied_emo,
+        "feedback" : replied_feedback
+    }
+    return fullReply
 
 
 def startSpeech(session_id="001"):
@@ -202,7 +214,7 @@ def startSpeech(session_id="001"):
 
     if not textFromSpeech["transcription"]:
         logging.debug("mic did not pick up anything") 
-        return "mic did not pick up anything ;0;0"
+        return "mic did not pick up anything"
 
     return textFromSpeech["transcription"]
 

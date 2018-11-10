@@ -32,7 +32,8 @@ def speak():
 def sendBot():
 	logging.debug(request.args)
 	reply = breakNewsLib.sendBot(request.args.get('text'))
-	return jsonify({'result': reply})
+	#return jsonify({'result': reply})
+	return jsonify(reply)
 
 if __name__ == '__main__':
 	app.run(debug=True)
