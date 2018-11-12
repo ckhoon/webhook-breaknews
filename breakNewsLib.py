@@ -173,7 +173,7 @@ def sendBot(text):
     except KeyError:
         logging.debug("no source")
     except :
-        replied_emo = ' ' + ":" + "0" + ";" + "0"
+        replied_emo = replied_text + ";" + "9" + ";" + "0"
         fullReply = {
             "result" : replied_emo,
             "feedback" : " "
